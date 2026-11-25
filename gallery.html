@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo Gallery | Marie Curie</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+    background:#080f1d;
+    color:#f5f0e6;
+    font-family:'DM Sans',sans-serif;
+    line-height:1.7;
+}
+
+/* NAVBAR */
+
+nav{
+    padding:20px 6%;
+    background:#0d192b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+    border-bottom:1px solid #b89555;
+}
+
+.logo{
+    font:26px 'Playfair Display',serif;
+    color:#d9b875;
+    font-weight:bold;
+}
+
+.nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:17px;
+}
+
+.nav-links a{
+    color:#eee;
+    text-decoration:none;
+    font-size:13px;
+    transition:.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:#d9b875;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:100px 20px;
+    background:linear-gradient(120deg,#080f1d,#1a3048);
+    border-bottom:1px solid #293a50;
+}
+
+.hero .tag{
+    color:#d9b875;
+    letter-spacing:4px;
+    font-size:12px;
+    text-transform:uppercase;
+}
+
+.hero h1{
+    font:700 55px 'Playfair Display',serif;
+    color:#e0c18a;
+    margin:15px 0;
+}
+
+.hero p{
+    color:#c0c9d4;
+    max-width:650px;
+    margin:auto;
+}
+
+/* GALLERY */
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:75px 25px;
+}
+
+.section-heading{
+    margin-bottom:35px;
+    text-align:center;
+}
+
+.section-heading h2{
+    font:36px 'Playfair Display',serif;
+    color:#d9b875;
+}
+
+.section-heading p{
+    color:#aeb8c5;
+    margin-top:10px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.gallery-card{
+    background:#111f33;
+    border:1px solid #293a50;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.gallery-card:hover{
+    transform:translateY(-7px);
+    border-color:#d9b875;
+    box-shadow:0 15px 35px #0006;
+}
+
+.image-box{
+    height:330px;
+    overflow:hidden;
+    background:#17263a;
+    cursor:pointer;
+}
+
+.image-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .5s;
+}
+
+.gallery-card:hover img{
+    transform:scale(1.06);
+}
+
+.caption{
+    padding:20px;
+}
+
+.caption h3{
+    font:22px 'Playfair Display',serif;
+    color:#e0c18a;
+    margin-bottom:7px;
+}
+
+.caption p{
+    font-size:13px;
+    color:#b9c3cf;
+}
+
+.caption span{
+    display:inline-block;
+    color:#d9b875;
+    font-size:11px;
+    margin-top:12px;
+    letter-spacing:1px;
+}
+
+/* FEATURE SECTION */
+
+.feature{
+    margin-top:85px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:40px;
+    background:#111f33;
+    border:1px solid #293a50;
+    padding:30px;
+    border-radius:14px;
+}
+
+.feature img{
+    width:100%;
+    max-height:400px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.feature h2{
+    color:#d9b875;
+    font:32px 'Playfair Display',serif;
+    margin-bottom:15px;
+}
+
+.feature p{
+    color:#bdc7d2;
+    margin-bottom:15px;
+}
+
+/* IMAGE MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:999;
+    inset:0;
+    background:rgba(0,0,0,.94);
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.modal img{
+    max-width:90%;
+    max-height:85vh;
+    object-fit:contain;
+    border:1px solid #d9b875;
+    border-radius:8px;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:35px;
+    font-size:42px;
+    color:white;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    background:#050b14;
+    text-align:center;
+    padding:35px 20px;
+    color:#9da8b6;
+    border-top:1px solid #293a50;
+}
+
+footer strong{
+    color:#d9b875;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:650px){
+    nav{
+        justify-content:center;
+    }
+
+    .nav-links{
+        justify-content:center;
+        gap:12px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+    }
+
+    .feature{
+        grid-template-columns:1fr;
+    }
+
+    .image-box{
+        height:300px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="logo">MARIE CURIE</div>
+
+    <div class="nav-links">
+        <a class="active" href="index.html">Home</a>
+        <a href="biography.html">Biography</a>
+        <a href="education.html">Education</a>
+        <a href="career.html">Career</a>
+        <a href="research.html">Research</a>
+        <a href="achievements.html">Achievements</a>
+        <a href="books.html">Books</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="references.html">References</a>
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<header class="hero">
+    <div class="tag">Historical Photo Collection</div>
+
+    <h1>Marie Curie Gallery</h1>
+
+    <p>
+        Explore rare historical photographs capturing the life,
+        scientific discoveries, laboratory work and legacy of
+        Marie Curie.
+    </p>
+</header>
+
+<!-- MAIN GALLERY -->
+
+<main class="container">
+
+    <div class="section-heading">
+        <h2>Moments From Her Life</h2>
+        <p>A collection of historical photographs from different periods.</p>
+    </div>
+
+    <div class="gallery">
+
+        <!-- IMAGE 1 -->
+
+        <div class="gallery-card">
+            <div class="image-box">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Portrait_of_Marie_Curie.jpg"
+                alt="Portrait of Marie Curie"
+                loading="lazy"
+                onclick="openImage(this)">
+            </div>
+
+            <div class="caption">
+                <h3>Marie Curie Portrait</h3>
+                <p>A historical portrait of Marie Curie from around 1921.</p>
+                <span>HISTORICAL PORTRAIT</span>
+            </div>
+        </div>
+
+        <!-- IMAGE 2 -->
+
+        <div class="gallery-card">
+            <div class="image-box">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Marie_Curie_in_her_laboratory.jpg"
+                alt="Marie Curie working in her laboratory"
+                loading="lazy"
+                onclick="openImage(this)">
+            </div>
+
+            <div class="caption">
+                <h3>Inside Her Laboratory</h3>
+                <p>Marie Curie conducting scientific work in her laboratory around 1900.</p>
+                <span>SCIENTIFIC RESEARCH</span>
+            </div>
+        </div>
+
+        <!-- IMAGE 3 -->
+
+        <div class="gallery-card">
+            <div class="image-box">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Marie_et_Pierre_Curie.jpg"
+                alt="Marie and Pierre Curie in Paris"
+                loading="lazy"
+                onclick="openImage(this)">
+            </div>
+
+            <div class="caption">
+                <h3>Marie & Pierre Curie</h3>
+                <p>A historical photograph of Marie and Pierre Curie in Paris.</p>
+                <span>SCIENTIFIC PARTNERSHIP</span>
+            </div>
+        </div>
+
+        <!-- IMAGE 4 -->
+
+        <div class="gallery-card">
+            <div class="image-box">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Marie_Curie_1903.jpg"
+                alt="Marie Curie Nobel Prize portrait 1903"
+                loading="lazy"
+                onclick="openImage(this)">
+            </div>
+
+            <div class="caption">
+                <h3>The 1903 Portrait</h3>
+                <p>Marie Skłodowska-Curie in a portrait from the year of her first Nobel Prize.</p>
+                <span>NOBEL HISTORY</span>
+            </div>
+        </div>
+
+        <!-- IMAGE 5 -->
+
+        <div class="gallery-card">
+            <div class="image-box">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Marie_Curie_in_her_Paris_Laboratory,_1912.jpg"
+                alt="Marie Curie in Paris laboratory in 1912"
+                loading="lazy"
+                onclick="openImage(this)">
+            </div>
+
+            <div class="caption">
+                <h3>Paris Laboratory, 1912</h3>
+                <p>Marie Curie photographed in her Paris laboratory.</p>
+                <span>LABORATORY ARCHIVE</span>
+            </div>
+        </div>
+
+        <!-- IMAGE 6 -->
+
+        <div class="gallery-card">
+            <div class="image-box">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Marie_Curie_-_Mobile_X-Ray-Unit.jpg"
+                alt="Marie Curie mobile X-ray unit"
+                loading="lazy"
+                onclick="openImage(this)">
+            </div>
+
+            <div class="caption">
+                <h3>Mobile X-Ray Units</h3>
+                <p>Historical photograph connected with her medical X-ray work during World War I.</p>
+                <span>WORLD WAR I</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FEATURE -->
+
+    <section class="feature">
+
+        <div>
+            <h2>A Legacy Beyond Discovery</h2>
+
+            <p>
+                Marie Curie's scientific achievements transformed
+                the understanding of radioactivity and helped open
+                new paths in physics, chemistry and medicine.
+            </p>
+
+            <p>
+                Her photographs preserve the story of a scientist
+                whose dedication changed the history of modern science.
+            </p>
+
+            <p>
+                Her legacy continues to inspire researchers and
+                students around the world.
+            </p>
+        </div>
+
+        <div>
+            <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Marie_and_Pierre_Curie_(centre)_in_their_laboratory,_Paris_Wellcome_V0030700.jpg"
+            alt="Marie and Pierre Curie in their laboratory"
+            loading="lazy"
+            onclick="openImage(this)"
+            style="cursor:pointer">
+        </div>
+
+    </section>
+
+</main>
+
+<!-- IMAGE VIEWER -->
+
+<div class="modal" id="imageModal" onclick="closeImage()">
+    <span class="close">&times;</span>
+    <img id="modalImage" src="" alt="Expanded historical photograph">
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+    <p><strong>MARIE CURIE</strong></p>
+    <p>Biography & Scientific Legacy</p>
+    <p>© 2026 Marie Curie Educational Project</p>
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+function openImage(image){
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+
+    modalImage.src = image.src;
+    modal.style.display = "flex";
+}
+
+function closeImage(){
+    document.getElementById("imageModal").style.display = "none";
+    document.getElementById("modalImage").src = "";
+}
+
+document.addEventListener("keydown", function(event){
+    if(event.key === "Escape"){
+        closeImage();
+    }
+});
+</script>
+
+</body>
+</html>
